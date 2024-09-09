@@ -18,6 +18,8 @@ public class Game {
     private int attempts;
     private long startTime;
     private User user;
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
     public Game() {
         this.secretNumber = generateSecretNumber();
@@ -36,18 +38,15 @@ public class Game {
         for (int i = 0; i < 4; i++) {
             secretNumber.append(numbers.get(i));
         }
-        System.out.println("generateSecretNumber "+secretNumber);
         return secretNumber.toString();
     }
 
-    private boolean setUserName(String name) {
+    public boolean setUserName(String name) {
         if(name.isBlank() || Character.isDigit(name.charAt(0))) return false;
         this.user.setName(name);
         return true;
     }
 
-    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
     public void start() throws IOException {
         String str;

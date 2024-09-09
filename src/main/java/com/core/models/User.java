@@ -10,32 +10,28 @@ import static com.core.providers.StorageProvider.setStorage;
 
 @Getter
 @Setter
-@ToString
+
 @Builder
 @NoArgsConstructor
 @Data
-@AllArgsConstructor
+
 
 public class User {
     private String name;
     private int score;
-    private List<User> userList;
+
 
     public User(String name, int score) {
         this.name = name;
         this.score = score;
     }
 
-    private List<User> getUserList() {
-        this.userList = StorageProvider.getStorage();
-        return userList;
-    }
 
     public boolean saveNewUser(int attempts, long time){
-        getUserList();
-        this.userList.add(new User(name, calcScore(attempts, time)));
+        List<User> userList = StorageProvider.getStorage();
+        userList.add(new User(name, calcScore(attempts, time)));
         try {
-            setStorage(this.userList);
+            setStorage(userList);
         }catch (Exception e){
             return false;
         }
@@ -44,16 +40,13 @@ public class User {
 
     private int calcScore(int attempts, long time) {
         double timeInDouble = (double) time;
-        System.out.println(time);
-        double result = 1000000 / (timeInDouble * attempts);
+        double result = 3000000 / (timeInDouble * attempts);
         setScore ((int) Math.ceil(result));
-        System.out.println("this.score "+this.score);
         return this.score;
     }
 
     public String getBestScore() {
-
-        getUserList();
+        List<User> userList = StorageProvider.getStorage();
         User maxScoreUser = null;
         for (User user : userList) {
             if (maxScoreUser == null || user.getScore() > maxScoreUser.getScore()) {
