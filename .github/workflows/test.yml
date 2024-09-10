@@ -37,7 +37,7 @@ jobs:
       - name: Create temp directory for reports
         run: |
           mkdir -p temp-reports
-          cp -r .github/workflows/reports/* temp-reports/
+          cp -r .github/workflows/reports/* temp-reports/ || echo "No files to copy"
 
       - name: Stash or discard local changes
         run: |
