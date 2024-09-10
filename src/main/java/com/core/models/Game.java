@@ -1,13 +1,11 @@
 package com.core.models;
-
-import com.core.exceptions.IncorrectInput;
 import lombok.*;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Random;
+
 
 @Getter
 @Setter
@@ -18,8 +16,6 @@ public class Game {
     private int attempts;
     private long startTime;
     private User user;
-    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
     public Game() {
         this.secretNumber = generateSecretNumber();
@@ -42,13 +38,13 @@ public class Game {
     }
 
     public boolean setUserName(String name) {
-        if(name.isBlank() || Character.isDigit(name.charAt(0))) return false;
+        if(name==null || name.isBlank() || Character.isDigit(name.charAt(0))) return false;
         this.user.setName(name);
         return true;
     }
 
 
-    public void start() throws IOException {
+    public void start(BufferedReader br, BufferedWriter bw) throws IOException {
         String str;
         boolean validName = false;
 
@@ -64,7 +60,7 @@ public class Game {
             }
         }
     }
-    public void body() throws IOException {
+    public void body(BufferedReader br, BufferedWriter bw) throws IOException {
         String str;
         boolean validNum = false;
         bw.write("Try to guess the four-digit number, no duplicate digits.");
@@ -103,7 +99,7 @@ public class Game {
         }
         return res.toString();
     }
-    public void happyEnd() throws IOException {
+    public void happyEnd(BufferedReader br, BufferedWriter bw) throws IOException {
         long time = System.currentTimeMillis() - startTime;
         user.saveNewUser(this.attempts, time);
         bw.write("Congratulations! Number of attempts "+ this.attempts +" \n");

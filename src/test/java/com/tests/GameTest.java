@@ -41,10 +41,9 @@ public class GameTest {
         BufferedWriter bw = mock(BufferedWriter.class);
         BufferedReader br = mock(BufferedReader.class);
         Game game = new Game();
-        game.setBw(bw);
-        game.setBr(br);
+
         when(br.readLine()).thenReturn("1Larisa", "Larisa");
-        game.start();
+        game.start(br, bw);
 
 
         ArgumentCaptor<String> stringCaptor = ArgumentCaptor.forClass(String.class);
@@ -64,8 +63,6 @@ public class GameTest {
         Game game = new Game();
         String secretNumber = game.getSecretNumber();
 
-        game.setBw(bw);
-        game.setBr(br);
         String secretNumberOneWrong = secretNumberOneWrong(secretNumber);
 
         Method numberCheck = Game.class.getDeclaredMethod("numberCheck", String.class);
@@ -73,7 +70,7 @@ public class GameTest {
         String secretNumberOneWrong_output = (String) numberCheck.invoke(game, secretNumberOneWrong);
 
         when(br.readLine()).thenReturn(secretNumber+"12", secretNumberOneWrong, secretNumber);
-        game.body();
+        game.body(br, bw);
 
 
         ArgumentCaptor<String> stringCaptor = ArgumentCaptor.forClass(String.class);
@@ -92,14 +89,15 @@ public class GameTest {
     @Test
     public void testHappyEnd() throws IOException {
         BufferedWriter bw = mock(BufferedWriter.class);
+        BufferedReader br = mock(BufferedReader.class);
         User user = mock(User.class);
         Game game = new Game();
         game.setUser(user);
         when(user.getScore()).thenReturn(100);
         when(user.getBestScore()).thenReturn("130");
         game.setAttempts(3);
-        game.setBw(bw);
-        game.happyEnd();
+
+        game.happyEnd(br, bw);
 
 
 

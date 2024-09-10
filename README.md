@@ -1,5 +1,19 @@
 # CodeExercise_GuessingNumberGame
 
+## Test Report in GitHub Pages
+After the Tests are automatically run in the GitHub Actions pipeline,
+the report is published https://annalevitskii.github.io/CodeExercise_GuessingNumberGame/
+
+## Run locally options
+
+Run game locally:
+### 1. `./gradlew shadowJar`
+### 2. `java -jar build/libs/CodeExercise_GuessingNumberGame-1.0-SNAPSHOT-all.jar`
+
+Run tests: 
+### `gradlew clean test`
+
+## Task
 Please program the following game (using any programming language)
 There should be an option to start a new Game
 1. When starting a new Game, the user will be prompted to enter his name
