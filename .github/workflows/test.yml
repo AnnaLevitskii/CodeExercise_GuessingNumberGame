@@ -34,31 +34,8 @@ jobs:
           chmod +x .github/workflows/filter_and_copy.sh
           ./.github/workflows/filter_and_copy.sh
 
-      - name: Create temp directory for reports
-        run: |
-          mkdir -p temp-reports
-          cp -r .github/workflows/reports/* temp-reports/ || echo "No files to copy"
-
-      - name: Stash or discard local changes
-        run: |
-          git stash || echo "No changes to stash"
-
-      - name: Checkout gh-pages branch
-        run: |
-          git fetch origin gh-pages
-          git checkout gh-pages
-
-      - name: Remove old reports in gh-pages
-        run: |
-          rm -rf * 
-
-      - name: Apply stashed changes
-        run: |
-          git stash pop || echo "No changes to apply"
-
-      - name: Copy reports from temp directory to gh-pages
-        run: |
-          cp -r temp-reports/* . 
+      - name: Push changes to gh-pages with force
+        run: git push --force origin gh-pages
 
       - name: Commit and push changes to gh-pages
         run: |
