@@ -39,30 +39,24 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "actions@github.com"
 
-      - name: Commit test reports to main branch
+      - name: Stash or discard local changes
         run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "actions@github.com"
-          git add .github/workflows/reports
-          git commit -m "Update test reports" || echo "No changes to commit"
-          git push origin main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          git stash || echo "No changes to stash"
 
-      - name: Fetch gh-pages branch
+      - name: Checkout gh-pages branch
         run: |
-          git fetch origin gh-pages:gh-pages
+          git fetch origin gh-pages
           git checkout gh-pages
 
-      - name: Copy reports to gh-pages
+      - name: Apply stashed changes
         run: |
-          rm -rf . # Remove all files in the current directory
-          cp -r .github/workflows/reports/* . # Copy new reports
+          git stash pop || echo "No changes to apply"
 
       - name: Commit and push changes to gh-pages
         run: |
-          git add .
-          git commit -m "Update test reports"
+          git config --global user.name "github-actions"
+          git config --global user.email "actions@github.com"
+          git commit -m "Update test reports" || echo "No changes to commit"
           git push origin gh-pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
