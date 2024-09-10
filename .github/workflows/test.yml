@@ -34,8 +34,23 @@ jobs:
           chmod +x .github/workflows/filter_and_copy.sh
           ./.github/workflows/filter_and_copy.sh
 
-      - name: Push changes to gh-pages with force
-        run: git push --force origin gh-pages
+      - name: Create temp directory for reports
+        run: |
+          mkdir -p temp-reports
+          cp -r .github/workflows/reports/* temp-reports/ || echo "No files to copy"
+
+      - name: Checkout gh-pages branch
+        run: |
+          git fetch origin
+          git checkout gh-pages || git checkout --orphan gh-pages
+
+      - name: Remove old content in gh-pages
+        run: |
+          rm -rf *
+
+      - name: Copy reports from temp directory to gh-pages
+        run: |
+          cp -r temp-reports/* .
 
       - name: Commit and push changes to gh-pages
         run: |
