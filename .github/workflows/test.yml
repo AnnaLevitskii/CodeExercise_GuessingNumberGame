@@ -47,6 +47,11 @@ jobs:
         run: |
           rm -rf * 
 
+      - name: Checkout main branch
+        run: |
+          git fetch origin main
+          git checkout main
+
       - name: Copy reports from main to gh-pages
         run: |
           cp -r .github/workflows/reports/* .
