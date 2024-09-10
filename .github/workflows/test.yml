@@ -54,7 +54,7 @@ jobs:
 
       - name: Copy reports to gh-pages
         run: |
-          rm -rf . 
+          rm -rf * 
           cp -r .github/workflows/reports/* . 
 
       - name: Commit and push changes to gh-pages
