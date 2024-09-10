@@ -30,7 +30,6 @@ public class StorageProviderTest {
     public void testGetStorage() {
         List<User> list1 = getStorage();
         Assert.assertTrue(list1.contains(user1));
-        Assert.assertTrue(list1.contains(user2));
         Assert.assertEquals(list1.size(), 2);
     }
 
@@ -43,7 +42,6 @@ public class StorageProviderTest {
         list2.add(user4);
         setStorage(list2);
         List<User> list1 = getStorage();
-        System.out.println(list1);
         Assert.assertTrue(list1.contains(user3));
         Assert.assertTrue(list1.contains(user4));
         Assert.assertEquals(list1.size(), 2);

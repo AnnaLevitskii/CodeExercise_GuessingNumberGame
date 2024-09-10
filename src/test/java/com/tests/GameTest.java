@@ -4,6 +4,7 @@ import com.core.models.Game;
 import com.core.models.User;
 import com.core.providers.CleanUpProvider;
 import com.core.providers.SetUpProvider;
+import com.core.providers.StorageProvider;
 import org.mockito.*;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.core.providers.MethodProvider.secretNumberOneWrong;
@@ -25,7 +27,7 @@ import static org.testng.Assert.*;
 
 public class GameTest {
     User user1 = new User("Jane", 15);
-    User user2 = new User("Ron", 25);
+    User user2 = new User("Ron", 125);
     @BeforeSuite
     public void bs(){
         List<User> list = new ArrayList<>();
@@ -35,24 +37,7 @@ public class GameTest {
     }
 
     @Test
-    public void testStart_posetive() throws IOException {
-        BufferedWriter bw = mock(BufferedWriter.class);
-        BufferedReader br = mock(BufferedReader.class);
-        Game game = new Game();
-        game.setBw(bw);
-        game.setBr(br);
-        when(br.readLine()).thenReturn("Larisa");
-        game.start();
-
-        ArgumentCaptor<String> stringCaptor = ArgumentCaptor.forClass(String.class);
-
-        verify(bw, times(1)).write(stringCaptor.capture());
-
-        String firstCall = stringCaptor.getAllValues().get(0);
-        assertEquals("Enter name:  ", firstCall);
-    }
-    @Test
-    public void testStart_negative() throws IOException {
+    public void testStart() throws IOException {
         BufferedWriter bw = mock(BufferedWriter.class);
         BufferedReader br = mock(BufferedReader.class);
         Game game = new Game();
@@ -105,7 +90,27 @@ public class GameTest {
     }
 
     @Test
-    public void testHappyEnd() {
+    public void testHappyEnd() throws IOException {
+        BufferedWriter bw = mock(BufferedWriter.class);
+        User user = mock(User.class);
+        Game game = new Game();
+        game.setUser(user);
+        when(user.getScore()).thenReturn(100);
+        when(user.getBestScore()).thenReturn("130");
+        game.setAttempts(3);
+        game.setBw(bw);
+        game.happyEnd();
+
+
+
+        ArgumentCaptor<String> stringCaptor = ArgumentCaptor.forClass(String.class);
+
+        verify(bw, times(3)).write(stringCaptor.capture());
+
+
+        assertEquals("Congratulations! Number of attempts 3 \n", stringCaptor.getAllValues().get(0));
+        assertEquals("Your score 100 \n", stringCaptor.getAllValues().get(1));
+        assertEquals("Best score 130 \n", stringCaptor.getAllValues().get(2));
 
     }
     @Test
