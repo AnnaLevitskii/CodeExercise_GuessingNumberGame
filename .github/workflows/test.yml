@@ -52,6 +52,11 @@ jobs:
         run: |
           git stash pop || echo "No changes to apply"
 
+      - name: Copy reports to gh-pages
+        run: |
+          rm -rf . 
+          cp -r .github/workflows/reports/* . 
+
       - name: Commit and push changes to gh-pages
         run: |
           git config --global user.name "github-actions"
