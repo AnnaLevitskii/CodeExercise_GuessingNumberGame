@@ -25,6 +25,9 @@ jar {
                 'Main-Class': 'com.core.Main'
         )
     }
+    from(sourceSets.main.output) {
+        include 'src/main/resources/storage.csv'
+    }
 }
 shadowJar {
     archiveClassifier.set('all')

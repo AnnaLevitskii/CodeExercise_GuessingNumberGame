@@ -6,9 +6,14 @@ the report is published https://annalevitskii.github.io/CodeExercise_GuessingNum
 
 ## Run locally options
 
-Run game locally:
+Run game locally IDE:
 ### 1. `./gradlew shadowJar`
 ### 2. `java -jar build/libs/CodeExercise_GuessingNumberGame-1.0-SNAPSHOT-all.jar`
+
+Run game jar locally:
+### 1. `./gradlew shadowJar`
+### 2. `cd `path/to/CodeExercise_GuessingNumberGame-1.0-SNAPSHOT-all.jar
+### 3. `java -jar CodeExercise_GuessingNumberGame-1.0-SNAPSHOT-all.jar`
 
 Run tests: 
 ### `gradlew clean test`
