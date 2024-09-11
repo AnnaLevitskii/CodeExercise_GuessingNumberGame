@@ -77,7 +77,7 @@ public class StorageProvider implements Path {
             }
             return map;
         }catch (RuntimeException | IOException e){
-            System.out.println(" here readCsvToHashMap" );
+            System.out.println(e);
         }
         return map;
     }
@@ -98,7 +98,7 @@ public class StorageProvider implements Path {
                 }
             }
         }catch (RuntimeException e){
-            System.out.println("here writeMapToCsv");
+            System.out.println(e);
         }
     }
 }

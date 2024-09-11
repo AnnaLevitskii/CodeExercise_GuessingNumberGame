@@ -79,7 +79,6 @@ public class Game {
                 bw.flush();
             }
         }
-
     }
     private String numberCheck(String str) {
         if(str.length()!=4 || str.chars().anyMatch(c -> !Character.isDigit(c)))
@@ -112,9 +111,6 @@ public class Game {
         bw.flush();
         bw.newLine();
 
-
-        if (br != null) br.close();
-        if (bw != null) bw.close();
     }
 
 
